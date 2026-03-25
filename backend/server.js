@@ -13,6 +13,14 @@ const app = express();
 
 connectDB();
 
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline';"
+  );
+  next();
+});
+
 
 const allowedOrigins = [
   "http://localhost:3000",

@@ -13,14 +13,6 @@ const app = express();
 
 connectDB();
 
-app.use((req, res, next) => {
-  res.setHeader(
-    "Content-Security-Policy",
-    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline';"
-  );
-  next();
-});
-
 
 const allowedOrigins = [
   "http://localhost:3000",
@@ -37,6 +29,12 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+
+app.use((req, res, next) => {
+  res.removeHeader("Content-Security-Policy");
+  next();
+});
 
 // Routes
 app.use("/api/auth",  authRoutes);

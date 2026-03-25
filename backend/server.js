@@ -10,12 +10,12 @@ const postRoutes = require("./routes/posts");
 
 const app = express();
 
-// Connect to MongoDB
+
 connectDB();
 
-// Middleware
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:3000",
+  origin: "https://vibe-social-media-nrv9.vercel.app/ "|| "http://localhost:3000",
   credentials: true,
 }));
 app.use(express.json());
@@ -25,10 +25,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth",  authRoutes);
 app.use("/api/posts", postRoutes);
 
-// Health check — useful for Render's zero-sleep ping
+
 app.get("/health", (req, res) => res.json({ status: "ok" }));
 
-// Global error handler
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: err.message || "Internal server error" });

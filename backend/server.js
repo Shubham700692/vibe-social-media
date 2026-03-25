@@ -14,10 +14,19 @@ const app = express();
 connectDB();
 
 
-app.use(cors({
-  origin: "https://vibe-social-media-nrv9.vercel.app/ "|| "http://localhost:3000",
-  credentials: true,
-}));
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://vibe-social-media-nrv9.vercel.app/", 
+];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
